@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../config";
 
-axios.defaults.baseURL = config.apiUrl;
+axios.defaults.baseURL = "/api";
 
 export const login = async (data) => {
   return axios.post("auth/login", data);
