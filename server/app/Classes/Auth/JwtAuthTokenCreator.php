@@ -36,7 +36,7 @@ final class JwtAuthTokenCreator
             throw new Exception('User is not set');
         }
         $this->payload = [
-            'iss' => $this->user->id,
+            'sub' => $this->user->id,
             'iat' => now()->unix(),
             'exp' => now()->addSeconds($this->jwtConfig->ttl())->unix(),
         ];

@@ -45,6 +45,7 @@ final class JwtGuard implements Guard
     {
         $token = $this->request->bearerToken();
         $secret = $this->jwtConfig->secret();
+
         if (is_null($token)) {
             return false;
         }

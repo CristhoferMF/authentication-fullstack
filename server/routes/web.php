@@ -15,12 +15,10 @@ use Symfony\Component\Console\Output\BufferedOutput;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('phpinfo', function () {
-    phpinfo();
-});
+Route::view('/', 'welcome');
+Route::get('phpinfo', fn () => phpinfo());
+Route::get('/login', fn () => redirect()->to(config('client.url')))->name('login');
+//  artisan comands
 Route::prefix('$2a$12$gaHvKNcpc2sLaMEuj/migrate')->group(function () {
     Route::get('/', function () {
         $output = new BufferedOutput();
