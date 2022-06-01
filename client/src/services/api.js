@@ -12,7 +12,7 @@ export const register = async (data) => {
 };
 
 export const profile = async (token) => {
-  return axios.get("user/profile", {
+  return axios.get("user", {
     headers: {
       Authorization: `Bearer ${token}`,
     },

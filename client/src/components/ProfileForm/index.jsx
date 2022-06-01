@@ -22,7 +22,7 @@ import { useAlert } from "react-alert";
 function ProfileForm({ userId }) {
   const {
     auth: {
-      token: {
+      tokens: {
         access: { token },
       },
     },

@@ -6,25 +6,31 @@ const useProfile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
-  const { auth } = useContext(AuthContext);
+  const {
+    auth: { tokens },
+    logout,
+  } = useContext(AuthContext);
 
   useEffect(() => {
     async function getProfile() {
       try {
         setLoading(true);
-        const response = await getUserProfile(auth.token.access.token);
+        const { token } = tokens.access;
+        const response = await getUserProfile(token);
+        console.log(response);
         setProfile(response.data);
         setError(null);
         setLoading(false);
-      } catch (err) {
-        setError(
-          (err.response.data.message ?? "Something went wrong").toUpperCase()
-        );
+      } catch ({ response: { status, data } }) {
+        if (status === 401) {
+          return logout();
+        }
         setLoading(false);
+        setError((data.message ?? "Something went wrong").toUpperCase());
       }
     }
     getProfile();
-  }, [auth]);
+  }, [tokens]);
 
   return { profile, loading, error };
 };
