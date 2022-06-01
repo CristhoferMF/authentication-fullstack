@@ -18,16 +18,3 @@ use Symfony\Component\Console\Output\BufferedOutput;
 Route::view('/', 'welcome');
 Route::get('phpinfo', fn () => phpinfo());
 Route::get('/login', fn () => redirect()->to(config('client.url')))->name('login');
-//  artisan comands
-Route::prefix('$2a$12$gaHvKNcpc2sLaMEuj/migrate')->group(function () {
-    Route::get('/', function () {
-        $output = new BufferedOutput();
-        Artisan::call('migrate', ['--force' => true], $output);
-        return response($output->fetch())->header('Content-Type', 'text/plain');
-    });
-    Route::get('/rollback', function () {
-        $output = new BufferedOutput();
-        Artisan::call('migrate:rollback', ['--force' => true], $output);
-        return response($output->fetch())->header('Content-Type', 'text/plain');
-    });
-});
