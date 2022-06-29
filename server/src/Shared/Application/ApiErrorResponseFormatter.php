@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utils;
+namespace Src\Shared\Application;
 
-class ApiErrorResponseFormatter
+final class ApiErrorResponseFormatter
 {
     public function __construct(
         private $message = "",

@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthenticatedUserController;
+use App\Http\Controllers\BackOffice\Auth\UserAuthenticationController;
+use App\Http\Controllers\BackOffice\User\UserRegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::name('api.')->group(function () {
-    Route::post('/auth/register', RegisterController::class)->name('register');
-    Route::post('/auth/login', LoginController::class)->name('login');
+    Route::post('/auth/login', UserAuthenticationController::class)->name('login');
+
+    Route::prefix('users')
+        ->name('users.')
+        ->group(function () {
+            Route::post('/register', UserRegisterController::class)->name('register');
+        });
     //user routes
     Route::middleware('auth:api')
         ->group(function () {

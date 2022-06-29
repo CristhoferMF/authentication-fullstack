@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Src\BackOffice\User\Infrastructure\BackOfficeUserServiceProvider;
+use Src\Shared\Infrastructure\Laravel\BackOfficeSharedServiceProvider;
 
 return [
 
@@ -194,6 +196,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * DDD Service Providers...
+         */
+        \Src\BackOffice\Auth\Infrastructure\Laravel\DependencyInjection\BackOfficeServiceProvider::class,
+        BackOfficeSharedServiceProvider::class,
+        BackOfficeUserServiceProvider::class,
 
     ],
 

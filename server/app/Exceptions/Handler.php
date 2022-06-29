@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-use App\Utils\ApiErrorException;
-use App\Utils\ApiErrorResponseFormatter;
 use App\Utils\HttpResponseCode;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Src\Shared\Application\ApiErrorResponseFormatter;
+use Src\Shared\Domain\ApiErrorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
