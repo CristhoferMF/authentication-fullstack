@@ -53,7 +53,16 @@ class Handler extends ExceptionHandler
         });
         $this->renderable(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*') && $request->expectsJson()) {
-                throw new ApiErrorException('Route not found', HttpResponseCode::HTTP_NOT_FOUND, $e);
+                $apiErrorFormatter = new ApiErrorResponseFormatter(
+                    "Route not found",
+                    HttpResponseCode::HTTP_NOT_FOUND,
+                    $e->getTrace(),
+                    config('app.debug')
+                );
+                return response()->json(
+                    $apiErrorFormatter->format(),
+                    $apiErrorFormatter->code()
+                );
             }
         });
 
@@ -63,7 +72,8 @@ class Handler extends ExceptionHandler
                 $e->getMessage(),
                 $e->getCode(),
                 $e->getTrace(),
-                config('app.debug')
+                config('app.debug'),
+                $e
             );
             return response()->json(
                 $apiErrorFormatter->format(),

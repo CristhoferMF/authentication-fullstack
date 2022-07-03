@@ -2,13 +2,16 @@
 
 namespace Src\Shared\Application;
 
+use Throwable;
+
 final class ApiErrorResponseFormatter
 {
     public function __construct(
         private $message = "",
         private $code = 0,
         private $trace = [],
-        private $isDebug = true
+        private $isDebug = true,
+        private ?Throwable $throwable = null,
     ) {
     }
 
@@ -21,6 +24,7 @@ final class ApiErrorResponseFormatter
 
         if ($this->isDebug) {
             $data['trace'] = $this->trace;
+            $data['exception'] = $this->throwable ? $this->throwable::class : null;
         }
         return $data;
     }

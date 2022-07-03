@@ -8,6 +8,7 @@ use Src\BackOffice\Auth\Domain\AuthTokenAutorization;
 use Src\BackOffice\Auth\Domain\AuthUser;
 use Src\BackOffice\Auth\Domain\AuthUserEmail;
 use Src\BackOffice\Auth\Domain\AuthUserPasswordHasher;
+use Src\BackOffice\Auth\Domain\Exceptions\InvalidCredentials;
 
 final class UserAutenticator
 {
@@ -38,8 +39,7 @@ final class UserAutenticator
     private function ensureCredentialsAreValid(AuthUser $auth, AuthPassword $password): void
     {
         if (false === $this->hasher->check($password, $auth->userPassword()->value())) {
-            // InvalidAuthPassword
-            throw new \Exception('Invalid password');
+            throw new InvalidCredentials($password->value());
         }
     }
 }

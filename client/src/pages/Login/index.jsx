@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "../../components/common";
+import { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { Button } from '../../components/common'
 import {
   AuthFormContainer,
   AuthFormWrapper,
@@ -12,37 +12,33 @@ import {
   AuthFormInputsWrapper,
   Small,
   SocialButtons,
-} from "../../components/AuthForm";
-import { Email as EmailIcon, Lock as LockIcon } from "@material-ui/icons";
-import { useSearchParams } from "react-router-dom";
-import imageLogo from "../../images/logo.svg";
-import { AuthContext } from "../../providers/AuthProvider";
-import { login as loginApiService } from "../../services/api";
+} from '../../components/AuthForm'
+import { Email as EmailIcon, Lock as LockIcon } from '@material-ui/icons'
+import { useSearchParams } from 'react-router-dom'
+import imageLogo from '../../images/logo.svg'
+import { AuthContext } from '../../providers/AuthProvider'
+import { login as loginApiService } from '../../services/api'
 
 function Login() {
-  const [searchParams] = useSearchParams();
-  const [error, setError] = useState("");
-  const { login } = useContext(AuthContext);
+  const [error, setError] = useState('')
+  const { login } = useContext(AuthContext)
 
   function handleSubmit(e) {
-    e.preventDefault();
-    const { email, password } = e.target.elements;
+    e.preventDefault()
+    const { email, password } = e.target.elements
     const credentials = {
       email: email.value,
       password: password.value,
-    };
+    }
     const loginRequest = async () => {
-      console.log("request");
       try {
-        const {
-          data: { data },
-        } = await loginApiService(credentials);
-        login(data);
+        const auth = await loginApiService(credentials)
+        login(auth)
       } catch (error) {
-        setError(error.response.data.message ?? "Something went wrong");
+        setError(error.response.data.message ?? 'Something went wrong')
       }
-    };
-    loginRequest();
+    }
+    loginRequest()
   }
 
   return (
@@ -60,14 +56,14 @@ function Login() {
               id="email"
               placeholder="Email"
               required
-              onChange={() => setError("")}
+              onChange={() => setError('')}
             />
             <AuthFormInput
               icon={<LockIcon />}
               id="password"
               placeholder="Password"
               type="password"
-              onChange={() => setError("")}
+              onChange={() => setError('')}
               required
             />
           </AuthFormInputsWrapper>
@@ -81,7 +77,7 @@ function Login() {
         </AuthForm>
       </AuthFormWrapper>
     </AuthFormContainer>
-  );
+  )
 }
 
-export default Login;
+export default Login

@@ -21,17 +21,15 @@ class UserRegisterController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
-            'name'      => 'required|string|max:255',
             'email'     => 'required|string|email|max:255',
-            'password'  => 'required|string|min:8|confirmed',
+            'password'  => 'required|string|min:8|max:50',
         ]);
 
-        $name     = $request->input('name');
         $email    = $request->input('email');
         $password = $request->input('password');
 
         $this->registrator->__invoke(
-            new UserName($name),
+            new UserName($email),
             new UserEmail($email),
             new UserPassword($password),
         );
