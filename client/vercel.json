@@ -1,7 +1,7 @@
 {
     "rewrites": [{
             "source": "/api/:path*",
-            "destination": "https://api-authfullstack.cristhofermf.dev/api/:path*"
+            "destination": "https://auth-fullstack-backend.herokuapp.com/api/:path*"
         },
         {
             "source": "/(.*)",
